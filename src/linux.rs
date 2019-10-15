@@ -57,13 +57,13 @@ where
     }
 
     eprintln!("okay, now we're here");
+    eprintln!("{:?} {:?}", &trash, &argv);
 
     // Execute command
     let mut command = Command::new(trash);
     command.args(argv);
     let result = command.output().map_err(|e| {
         println!("and now... \n{:?}", e);
-        println!("{:?} {:?}", &trash, &argv);
         Error::Remove {
             code: e.raw_os_error(),
         }
