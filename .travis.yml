@@ -18,6 +18,11 @@ matrix:
     - rust: nightly
   fast_finish: true
 
+install:
+  -   sudo apt-key update
+  -   sudo apt-get -yq update
+  -   sudo apt -yq install xvfb gnome-shell
+
 before_script:
   - "export DISPLAY=:99.0"
   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
