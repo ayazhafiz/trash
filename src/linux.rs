@@ -63,6 +63,7 @@ where
     command.args(argv);
     let result = command.output().map_err(|e| {
         println!("and now... \n{:?}", e);
+        println!("{:?} {:?}", trash, argv);
         Error::Remove {
             code: e.raw_os_error(),
         }
