@@ -19,6 +19,7 @@ where
     T: AsRef<Path>,
 {
     let paths = paths.into_iter();
+    eprintln!("h,,, got here");
     let full_paths = paths
         .map(|x| x.as_ref().canonicalize())
         .collect::<Result<Vec<_>, _>>()
@@ -55,15 +56,19 @@ where
         }
     }
 
+    eprintln!("okay, now we're here");
+
     // Execute command
     let mut command = Command::new(trash);
     command.args(argv);
-    let result = command.output().map_err(|e| Error::Remove {
-        code: e.raw_os_error(),
+    let result = command.output().map_err(|e| {
+        println!("and now... \n{:?}", e);
+        Error::Remove {
+            code: e.raw_os_error(),
+        }
     })?;
 
-    eprintln!("{}", std::str::from_utf8(&result.stderr).unwrap());
-    eprintln!("{}", std::str::from_utf8(&result.stdout).unwrap());
+    eprintln!("and now here...");
 
     if !result.status.success() {
         return Err(Error::Remove {
